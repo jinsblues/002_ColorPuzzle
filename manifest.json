@@ -7,7 +7,7 @@
   "theme_color": "#f8f9fa",
   "icons": [
     {
-        "src" : "icon.png",
+        "src" : "puzzle.png",
         "sizes" : "512x512",
         "type" : "image/png"
     }
