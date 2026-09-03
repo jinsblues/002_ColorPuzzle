@@ -11,8 +11,9 @@ let startTime = Date.now();
 let isGameOver = false;
 let timerFrame;
 
-// 1. 밀리초 단위 타이머 
+// 1. 밀리초 단위 타이머
 function updateTime() {
+    // [아버님의 디버깅 포인트 반영] isGameOver가 true가 되면 타이머가 즉시 멈춥니다!
     if (isGameOver) return; 
 
     const elapsedTime = Date.now() - startTime;
@@ -29,29 +30,33 @@ function updateTime() {
 }
 updateTime();
 
-// 2. 승리 조건 체크 
+// 2. 승리 조건 체크 (에러가 발생하지 않는 가장 안전한 로직으로 전면 수정)
 function checkWin() {
-    // [핵심 해결] 텍스트가 증발하는 현상을 막기 위해, 숫자를 쓰지 않고 '첫 번째 칸'을 가져오는 안전한 문법을 적용했습니다.
-    const [firstCell] = cells;
-    const firstColorIndex = firstCell.dataset.colorIndex;
+    let isWin = true;
+    let firstColor = null;
     
-    // 모든 칸이 첫 번째 칸과 색상 인덱스가 같은지 검사
-    const isWin = cells.every(cell => cell.dataset.colorIndex === firstColorIndex);
+    // 대괄호 기호나 구형 기기에서 에러가 나는 최신 문법을 완전히 배제한 방식입니다.
+    cells.forEach(function(cell) {
+        if (firstColor === null) {
+            firstColor = cell.dataset.colorIndex; // 첫 번째 칸의 색상 기준 잡기
+        } else if (cell.dataset.colorIndex !== firstColor) {
+            isWin = false; // 하나라도 색이 다르면 승리 실패
+        }
+    });
 
+    // 16개가 모두 같으면 게임 종료 및 메시지 표시
     if (isWin) {
-        isGameOver = true;
-        cancelAnimationFrame(timerFrame); 
+        isGameOver = true; // 이 플래그가 타이머를 확실히 멈춰줍니다.
         winMessage.style.display = 'block'; 
     }
 }
 
-// 다시하기 버튼 터치 시 화면 새로고침 함수
+// 다시하기 버튼 기능
 function restartGame(e) {
     e.preventDefault(); 
     location.reload(); 
 }
 
-// 다시하기 버튼 이벤트 등록
 restartBtn.addEventListener('touchstart', restartGame, { passive: false });
 restartBtn.addEventListener('mousedown', restartGame);
 
@@ -78,7 +83,6 @@ for (let i = 0; i < 16; i++) {
         cell.dataset.colorIndex = nextIndex;
         cell.style.backgroundColor = colors[nextIndex];
 
-        // 터치하여 색이 바뀔 때마다 정답인지 체크
         checkWin();
     }
 
