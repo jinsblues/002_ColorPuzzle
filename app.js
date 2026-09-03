@@ -31,7 +31,7 @@ updateTime();
 
 // 2. 승리 조건 체크 (16개 모두 같은 색인지 확인)
 function checkWin() {
-    // 첫 번째 칸의 색상 인덱스를 기준으로 잡음
+    // [수정됨] cells을 추가하여 배열의 '첫 번째 칸'을 명확히 지정!
     const firstColorIndex = cells.dataset.colorIndex;
     
     // 모든 칸이 첫 번째 칸과 색상 인덱스가 같은지 검사
@@ -43,6 +43,16 @@ function checkWin() {
         winMessage.style.display = 'block'; // Congratulation 메시지 표시
     }
 }
+
+// [추가됨] 다시하기 버튼 터치 시 화면 새로고침 함수
+function restartGame(e) {
+    e.preventDefault(); 
+    location.reload(); // 화면을 새로고침하여 게임을 초기 상태로 돌립니다.
+}
+
+// 다시하기 버튼 이벤트 등록
+restartBtn.addEventListener('touchstart', restartGame, { passive: false });
+restartBtn.addEventListener('mousedown', restartGame);
 
 // 3. 16개 칸(격자) 생성 및 초기화
 for (let i = 0; i < 16; i++) {

@@ -55,7 +55,7 @@ body, html {
     pointer-events: none; 
 }
 
-/* 축하 메시지 팝업 */
+/* [수정됨] 축하 메시지 팝업 (터치 무시 속성 제거 및 여백 조정) */
 #win-message {
     position: absolute;
     top: 45%;
@@ -63,12 +63,25 @@ body, html {
     transform: translate(-50%, -50%);
     font-size: 40px;
     font-weight: bold;
-    color: #FF1493; /* 핫핑크 */
+    color: #FF1493; 
     background: rgba(255, 255, 255, 0.95);
-    padding: 20px 40px;
+    padding: 30px 40px;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     z-index: 20;
     text-align: center;
-    pointer-events: none; 
+}
+
+/* [추가됨] 다시하기 버튼 스타일 */
+#restart-btn {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    background-color: #4CAF50; /* 초록색 버튼 */
+    border: none;
+    border-radius: 12px;
+    padding: 15px 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    /* 터치 오작동 방지 */
+    touch-action: manipulation; 
 }
