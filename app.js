@@ -2,7 +2,7 @@ const gameBoard = document.getElementById('game-board');
 const timeCountElement = document.getElementById('time-count');
 const hitCountElement = document.getElementById('hit-count');
 const winMessage = document.getElementById('win-message');
-const restartBtn = document.getElementById('restart-btn'); // [추가됨] 버튼 가져오기
+const restartBtn = document.getElementById('restart-btn');
 
 const colors = ['red', 'green', 'blue', 'black', 'white'];
 let cells = []; 
@@ -31,8 +31,9 @@ updateTime();
 
 // 2. 승리 조건 체크 
 function checkWin() {
-    // [수정됨] cells을 추가하여 배열의 '첫 번째 칸'을 명확히 지정!
-    const firstColorIndex = cells.dataset.colorIndex;
+    // [핵심 해결] 텍스트가 증발하는 현상을 막기 위해, 숫자를 쓰지 않고 '첫 번째 칸'을 가져오는 안전한 문법을 적용했습니다.
+    const [firstCell] = cells;
+    const firstColorIndex = firstCell.dataset.colorIndex;
     
     // 모든 칸이 첫 번째 칸과 색상 인덱스가 같은지 검사
     const isWin = cells.every(cell => cell.dataset.colorIndex === firstColorIndex);
@@ -44,10 +45,10 @@ function checkWin() {
     }
 }
 
-// [추가됨] 다시하기 버튼 터치 시 화면 새로고침 함수
+// 다시하기 버튼 터치 시 화면 새로고침 함수
 function restartGame(e) {
     e.preventDefault(); 
-    location.reload(); // 화면을 새로고침하여 게임을 초기 상태로 돌립니다.
+    location.reload(); 
 }
 
 // 다시하기 버튼 이벤트 등록
@@ -77,6 +78,7 @@ for (let i = 0; i < 16; i++) {
         cell.dataset.colorIndex = nextIndex;
         cell.style.backgroundColor = colors[nextIndex];
 
+        // 터치하여 색이 바뀔 때마다 정답인지 체크
         checkWin();
     }
 
