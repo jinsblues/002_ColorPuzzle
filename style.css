@@ -4,7 +4,7 @@ body, html {
     padding: 0;
     width: 100vw;
     height: 100vh;
-    background-color: #f0f8ff; /* 연한 파스텔톤 파란 배경 */
+    background-color: #f0f8ff; 
     overflow: hidden;
     position: fixed; 
     user-select: none; 
@@ -13,12 +13,11 @@ body, html {
     font-family: sans-serif;
 }
 
-/* 4x4 격자 퍼즐 보드 */
 #game-board {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
-    width: 85vmin; /* 화면 크기에 맞춰 정사각형 유지 */
+    width: 85vmin; 
     height: 85vmin;
     max-width: 500px;
     max-height: 500px;
@@ -26,20 +25,18 @@ body, html {
     top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
-    gap: 8px; /* 칸 사이 간격 */
-    background-color: #dcdcdc; /* 퍼즐판 배경 회색 */
+    gap: 8px; 
+    background-color: #dcdcdc; 
     padding: 8px;
     border-radius: 12px;
 }
 
-/* 각각의 퍼즐 칸 */
 .cell {
     border-radius: 8px;
     border: 2px solid #bbb;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.1); /* 입체감 */
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1); 
 }
 
-/* 하단 정보창 */
 #info-panel {
     position: absolute;
     bottom: 30px;
